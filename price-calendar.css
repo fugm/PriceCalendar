@@ -1,0 +1,59 @@
+/**
+ * 酒店价格日历组件
+ * 
+ * Author: Angtian
+ * E-mail: Angtian.fgm@taobao.com
+ */
+.price-calendar-bounding-box{position:absolute; font:12px/1.5 Arial;}
+.price-calendar-bounding-box .disabled{cursor:not-allowed;}
+.price-calendar-bounding-box .hidden{display:none;}
+.price-calendar-bounding-box .blue{background-color:#03F;}
+.price-calendar-bounding-box .green{background-color:#093;}
+.price-calendar-bounding-box .red{background-color:#F30;}
+.price-calendar-bounding-box .weekend{color:red;}
+.price-calendar-bounding-box h4, .price-calendar-bounding-box p{margin:0; padding:0;}
+.price-calendar-bounding-box .container{position:relative;}
+.price-calendar-bounding-box .container .arrow{position:relative; z-index:2;}
+.price-calendar-bounding-box .container .arrow span{position:absolute; top:12px; width:8px; height:13px; cursor:pointer; overflow:hidden; text-indent:-99999px; background:#FFF url(ico.png) 0 0 no-repeat;}
+.price-calendar-bounding-box .container .arrow .prev-btn{left:12px; background-position:0 0;}
+.price-calendar-bounding-box .container .arrow .next-btn{right:12px; background-position:right 0;}
+.price-calendar-bounding-box .content-box{position:relative; border:3px solid #78B1C8; letter-spacing:-0.31em; *letter-spacing:normal; word-spacing:-0.43em;}
+.price-calendar-bounding-box .content-box .inner{position:relative; background-color:#FFF; border:3px solid #78B1C8; display:inline-block; zoom:1;*display:inline; letter-spacing:normal; word-spacing:normal; vertical-align:top;}
+.price-calendar-bounding-box .content-box .inner h4{color:#0E5788; width:100%; height:25px; font-size:14px; line-height:25px; text-align:center;}
+.price-calendar-bounding-box table{border-spacing:0; border-collapse:collapse;}
+.price-calendar-bounding-box table th{height:30px; font-weight:400; border-bottom:1px solid #E5E5E5;}
+.price-calendar-bounding-box table td{width:67px; height:50px; cursor:pointer; border:1px solid #E5E5E5; border-width:0 1px 1px 0;}
+.price-calendar-bounding-box table td.bor-r-0{border-width:0 0 1px 0;}
+.price-calendar-bounding-box table td.selected-range{background-color:#F0F0F0;}
+.price-calendar-bounding-box table td.dep-date{background-color:#FF9;}
+.price-calendar-bounding-box table td.end-date{background-color:#DBE1E8;}
+.price-calendar-bounding-box table td .mark{text-align:center;}
+.price-calendar-bounding-box table td.dep-date .mark{color:#F60;}
+.price-calendar-bounding-box table td.end-date .mark{color:#0069CA;}
+.price-calendar-bounding-box table td .pos{position:absolute; top:1px; left:5px;}
+.price-calendar-bounding-box table td p{position:relative; height:100%;}
+.price-calendar-bounding-box table td p a{display:block; height:25px; line-height:25px; text-align:center; text-decoration:none;}
+.price-calendar-bounding-box table td p a.in{color:#888; background-color:#EBEBEB;}
+.price-calendar-bounding-box table td p a.in:hover{color:#FFF; background-color:#FDAB00;}
+.price-calendar-bounding-box table td p a.out{color:#FFF; background-color:#CACACA;}
+.price-calendar-bounding-box table td p a.out:hover{color:#FFF; background-color:#6899FF;}
+.price-calendar-bounding-box table td.active p{display:none;}
+.price-calendar-bounding-box table td.active p.select{display:block;}
+.price-calendar-bounding-box table td p.select{display:none;}
+.price-calendar-bounding-box table td p span{display:block; line-height:15px;}
+.price-calendar-bounding-box table td .price{color:#0069CA; padding-left:5px;}
+.price-calendar-bounding-box table td.disabled .price{display:none;}
+.price-calendar-bounding-box table td.disabled .status{display:none;}
+.price-calendar-bounding-box table td .no-room{color:#FC174F; padding-left:12px;}
+.price-calendar-bounding-box table td .status{color:#498B05; text-align:right; padding-right:3px;}
+.price-calendar-bounding-box table td .date{color:#AAA; display:block; font-size:18px; text-align:right; line-height:20px; padding-right:3px;}
+.price-calendar-bounding-box table td.disabled .date{color:#E8E8E8;}
+.price-calendar-bounding-box .bottom{color:#555; overflow:hidden; zoom:1; background-color:#FFF;}
+.price-calendar-bounding-box .bottom p{height:30px; line-height:30px;}
+.price-calendar-bounding-box .bottom .tips{float:left;}
+.price-calendar-bounding-box .bottom .tips em{float:left; width:10px; height:10px; margin:10px 10px 0; _margin-top:8px; border:1px solid #CCC; overflow:hidden;}
+.price-calendar-bounding-box .bottom .tips em s{float:left; width:8px; height:8px; margin:1px; overflow:hidden;}
+.price-calendar-bounding-box .bottom .tips span{float:left;}
+.price-calendar-bounding-box .bottom .btns{float:right;}
+.price-calendar-bounding-box .bottom .btns input{border:0; color:#FFF; width:70px; height:22px; cursor:pointer; overflow:hidden; border-radius:4px; *line-height:25px; margin:5px 0 0 8px; background-color:#0F62F0;}
+.price-calendar-bounding-box .bottom .btns input.disabled{cursor:not-allowed; background-color:#999;}
