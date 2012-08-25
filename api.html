@@ -1,0 +1,511 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="angtian">
+    <meta name="description" content="酒店价格日历API文档">
+    <title>价格日历API文档</title>
+</head>
+<style>
+body{color:#666;background-color:#DBDFE3;font:14px/1.5 \5fae\8f6f\96c5\9ed1;}
+a{color:#039;}
+a:hover{color:#06C;}
+#header,#main,#footer{width:640px;margin:0 auto;}
+h1.title{color:#30475E;text-align:center;}
+.summary{color:#FFF;border-radius:8px;background-color:#30475E;padding:20px;}
+.summary a{color:#FFF;}
+.section{margin-top:30px;border-radius:8px;background-color:#FFF;border:1px solid #D1D1D1;padding:20px;}
+.section h2{color:#333;text-align:center;}
+.section pre{font-size:12px;border-radius:5px;font-family:Courier New;border:1px solid #EFEFEF;background-color:#F9F9F9;padding:5px;}
+.section dl{padding-left:1em;border-left:1px dashed #DDD;}
+.section dl dt{font-weight:700;padding:8px 0;}
+.section dl dd{margin-left:0;}
+#footer{color:#999;text-align:center;}
+#footer a{color:#999;}
+</style>
+<body>
+<div id="header">
+    <h1 class="title">酒店价格日历</h1>
+    <div class="summary">
+        <p>基于YUI3开发的价格日历组件</p>
+        <ul>
+            <li>组件名称：Y.PriceCalendar</li>
+            <li>依赖模块：['node', 'base-base', 'event-mouseenter']</li>
+        </ul>
+		<p><strong>源代码：</strong><a href="http://fgm.cc/learn/calendar/price-calendar/price-calendar.js">price-calendar.js</a></p>
+        <p><strong>demo：</strong><a href="http://fgm.cc/learn/calendar/price-calendar">http://fgm.cc/learn/calendar/price-calendar</a></p>
+        <p><strong>github：</strong><a href="https://github.com/fugm/PriceCalendar">https://github.com/fugm/PriceCalendar</a></p>
+        <p><strong>author：</strong><a href="http://fgm.cc">Angtian</a> <a href="http://weibo.com/fugm">@淘宝昂天</a></p>
+    </div>
+</div>
+<div id="main">
+    <div class="section">
+        <h2>文档索引</h2>
+        <ul>
+            <li>
+                <h3><a href="#use">快速上手</a></h3>
+            </li>
+            <li>
+                <h3><a href="#options">配置参数</a></h3>
+                <ul>
+                    <li><a href="#options-date">date</a></li>
+                    <li><a href="#options-data">data</a></li>
+                    <li><a href="#options-count">count</a></li>
+                    <li><a href="#options-minDate">minDate</a></li>
+                    <li><a href="#options-maxDate">maxDate</a></li>
+                    <li><a href="#options-depDate">depDate</a></li>
+                    <li><a href="#options-endDate">endDate</a></li>
+                    <li><a href="#options-afterDays">afterDays</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3><a href="#api">接口</a></h3>
+                <ul>
+                    <li><a href="#api-render">render()</a></li>
+                    <li><a href="#api-prevMonth">prevMonth()</a></li>
+                    <li><a href="#api-nextMonth">nextMonth()</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3><a href="#event">自定义事件</a></h3>
+                <ul>
+                    <li><a href="#event-render">render</a></li>
+                    <li><a href="#event-prevmonth">prevmonth</a></li>
+                    <li><a href="#event-nextmonth">nextmonth</a></li>
+                    <li><a href="#event-checkin">checkin</a></li>
+                    <li><a href="#event-checkout">checkout</a></li>
+                    <li><a href="#event-confirm">confirm</a></li>
+                    <li><a href="#event-cancel">cancel</a></li>
+                </ul>
+            </li>
+            <li>
+            	<h3><a href="#optionsChange">配置参数改变事件</a></h3>
+                <ul>
+                    <li><a href="#optionsChange-dateChange">dateChange</a></li>
+                    <li><a href="#optionsChange-dataChange">dataChange</a></li>
+                    <li><a href="#optionsChange-countChange">countChange</a></li>
+                    <li><a href="#optionsChange-minDateChange">minDateChange</a></li>
+                    <li><a href="#optionsChange-maxDateChange">maxDateChange</a></li>
+                    <li><a href="#optionsChange-depDateChange">depDateChange</a></li>
+                    <li><a href="#optionsChange-endDateChange">endDateChange</a></li>
+                    <li><a href="#optionsChange-afterDaysChange">afterDaysChange</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="use" class="section">
+        <h2>快速上手</h2>
+        <h3>引入文件</h3>
+        <p>在页面head引入YUI3.x.x种子</p>
+        <pre>&lt;script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"&gt;&lt;/script&gt;</pre>
+        <h3>配置</h3>
+<pre>
+var config = {
+    modules: {
+        'price-calendar': {
+            fullpath: 'price-calendar.js', //根据项目路径调整
+            type    : 'js',
+            requires: ['price-calendar-css']
+        },
+        'price-calendar-css': {
+            fullpath: 'price-calendar.css', //根据项目路径调整
+            type    : 'css'
+        }
+    }
+};
+</pre>
+        <h3>使用</h3>
+<pre>
+YUI(config).use('price-calendar', function(Y) {
+    var oCalendar = new Y.PriceCalendar();    
+    //do something
+})
+</pre>        
+    </div>
+    <div id="options" class="section">
+        <h2>配置参数</h2>
+        <ul>
+            <li>
+                <h3 id="options-date">date</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：当前日期) 日历初始日期</dd>
+                    <dt>类型</dt>
+                    <dd>Date (日期对象) 或 String (日期字符串)</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-data">data</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：null) 酒店房态数据</dd>
+                    <dt>类型</dt>
+                    <dd>Object</dd>
+                    <dd>
+<pre>
+{
+    "2012-05-01": {
+        "price"  : "100",
+        "roomNum": "10"
+    },
+    "2012-05-02": {
+        "price"  : "120",
+        "roomNum": "1"
+    },
+    "2012-05-03": {
+        "price"  : "150",
+        "roomNum": "25"
+    }  
+}
+</pre>                    
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-count">count</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：2) 日历个数</dd>
+                    <dt>类型</dt>
+                    <dd>Number</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-minDate">minDate</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：null) 允许操作的最小日期</dd>
+                    <dt>类型</dt>
+                    <dd>Date (日期对象) 或 String (日期字符串)</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-maxDate">maxDate</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：null) 允许操作的最大日期</dd>
+                    <dt>类型</dt>
+                    <dd>Date (日期对象) 或 String (日期字符串)</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-depDate">depDate</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：空) 入住时间</dd>
+                    <dt>类型</dt>
+                    <dd>String (日期字符串)</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-endDate">endDate</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：空) 离店时间</dd>
+                    <dt>类型</dt>
+                    <dd>String (日期字符串)</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="options-afterDays">afterDays</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>(默认值：0) 等价于设置minDate和maxDate，minDate未设置时取当前日期</dd>
+                    <dt>类型</dt>
+                    <dd>Number</dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div id="api" class="section">
+        <h2>接口</h2>
+        <ul>
+            <li>
+                <h3 id="api-render">render()</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>用于设置参数后渲染日历UI</dd>
+                    <dt>返回值</dt>
+                    <dd>日历对象，可做链式操作</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="api-prevMonth">prevMonth()</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>渲染上月日历UI</dd>
+                    <dt>返回值</dt>
+                    <dd>日历对象，可做链式操作</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="api-nextMonth">nextMonth()</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>渲染下月日历UI</dd>
+                    <dt>返回值</dt>
+                    <dd>日历对象，可做链式操作</dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div id="event" class="section">
+        <h2>自定义事件</h2>
+        <ul>
+            <li>
+                <h3 id="event-render">render</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>渲染日历UI事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('render', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-prevmonth">prevmonth</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击上月按钮事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('prevmonth', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-nextmonth">nextmonth</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击下月按钮事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('nextmonth', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-checkin">checkin</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击入住日期事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('checkin', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-checkout">checkout</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击离店日期事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('checkout', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-confirm">confirm</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击确定按钮事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('confirm', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="event-cancel">cancel</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>点击取消按钮事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('cancel', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div id="optionsChange" class="section">
+        <h2>配置参数改变事件</h2>
+        <ul>
+            <li>
+                <h3 id="optionsChange-dateChange">dateChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置date参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('dateChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                    <dt>注释</dt>
+                    <dd>已为此事件绑定render方法，在设置属性后无需再次调用render方法</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-dataChange">dataChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置data参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('dataChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                    <dt>注释</dt>
+                    <dd>已为此事件绑定render方法，在设置属性后无需再次调用render方法</dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-countChange">countChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置count参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('countChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-minDateChange">minDateChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置minDate参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('minDateChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-maxDateChange">maxDateChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置maxDate参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('maxDateChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-depDateChange">depDateChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置depDate参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('depDateChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <h3 id="optionsChange-endDateChange">endDateChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置endDate参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('endDateChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>            
+            <li>
+                <h3 id="optionsChange-afterDaysChange">afterDaysChange</h3>
+                <dl>
+                    <dt>概述</dt>
+                    <dd>设置afterDays参数触发事件</dd>
+                    <dt>示例</dt>
+                    <dd>
+<pre>
+var oCalendar = new Y.PriceCalendar();
+    oCalendar.on('afterDaysChange', function(e) {
+        //do something
+    });
+</pre>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="footer">
+    <p>&copy;2012 Angtian <a href="http://weibo.com/fugm">@淘宝昂天</a>, <a href="http://fgm.cc">Fgm.cc</a></p>
+</div>
+</body>
+</html>

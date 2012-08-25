@@ -14,7 +14,7 @@
 .price-calendar-bounding-box h4, .price-calendar-bounding-box p{margin:0; padding:0;}
 .price-calendar-bounding-box .container{position:relative;}
 .price-calendar-bounding-box .container .arrow{position:relative; z-index:2;}
-.price-calendar-bounding-box .container .arrow span{position:absolute; top:12px; width:8px; height:13px; cursor:pointer; overflow:hidden; text-indent:-99999px; background:#FFF url(ico.png) 0 0 no-repeat;}
+.price-calendar-bounding-box .container .arrow span{position:absolute; top:12px; width:8px; height:13px; cursor:pointer; overflow:hidden; text-indent:-99999px; background:#FFF url(http://img02.taobaocdn.com/tps/i2/T1QGPIXa0aXXb.Pazc-26-13.png) 0 0 no-repeat;}
 .price-calendar-bounding-box .container .arrow .prev-btn{left:12px; background-position:0 0;}
 .price-calendar-bounding-box .container .arrow .next-btn{right:12px; background-position:right 0;}
 .price-calendar-bounding-box .content-box{position:relative; border:3px solid #78B1C8; letter-spacing:-0.31em; *letter-spacing:normal; word-spacing:-0.43em;}
